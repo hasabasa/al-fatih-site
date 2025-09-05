@@ -67,8 +67,10 @@ h2{font-size:clamp(22px,3.2vw,32px)}
 .hero__content{display:grid;grid-template-columns:1fr;gap:22px;align-items:center}
 @media(min-width:980px){.hero__content{grid-template-columns:1.1fr .9fr}}
 .bookwrap{position:relative;display:flex;align-items:center;justify-content:center}
-.bookimg{max-width:420px;width:100%;filter:brightness(.92) contrast(1.12);mix-blend-mode:multiply;image-rendering:auto}
-.bookshadow{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:72%;height:24px;background:radial-gradient(50% 70% at 50% 50%, rgba(0,0,0,.45), transparent 70%);filter:blur(6px);opacity:.75;pointer-events:none}
+.bookwrap::before{content:"";position:absolute;inset:0 6%;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));filter:blur(2px);box-shadow:0 12px 28px var(--shadow)}
+.bookimg{position:relative;max-width:420px;width:100%;filter:brightness(1) contrast(1.06);mix-blend-mode:normal;z-index:1}
+.bookshadow{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:72%;height:24px;background:radial-gradient(50% 70% at 50% 50%, rgba(0,0,0,.55), transparent 70%);filter:blur(6px);opacity:.8;pointer-events:none;z-index:0}
+.placeholder{display:none;position:relative;z-index:1;color:var(--muted);font-size:14px}
 
 /* Typewriter */
 .typewrap{position:relative;min-height:140px;padding:20px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))}
@@ -76,13 +78,13 @@ h2{font-size:clamp(22px,3.2vw,32px)}
 .cursor{display:inline-block;width:10px;background:var(--ink);margin-left:2px;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{background:transparent}}
 .progress{position:absolute;left:0;right:0;top:0;height:3px;background:rgba(255,255,255,.08);overflow:hidden;border-top-left-radius:18px;border-top-right-radius:18px}
-.progress>.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .2s linear}
+.progress>.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .25s linear}
 .stories-ctrl{display:flex;gap:8px;margin-top:12px}
 .ctrl{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--ink);padding:8px 12px;border-radius:10px}
 
-/* PURE CSS PRELOADER */
-.preloader{position:fixed;inset:0;background:radial-gradient(1200px 700px at 50% 110%, #0b0a08, #060606 55%, #030303 80%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--ink);z-index:9999;animation:hidePre 2.2s ease forwards;pointer-events:none}
-@keyframes hidePre{0%{opacity:1;visibility:visible}90%{opacity:0}100%{opacity:0;visibility:hidden}}
+/* PURE CSS PRELOADER — 3s hold, потом плавное скрытие */
+.preloader{position:fixed;inset:0;background:radial-gradient(1200px 700px at 50% 110%, #0b0a08, #060606 55%, #030303 80%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--ink);z-index:9999;pointer-events:none;animation:preHold 3s ease forwards}
+@keyframes preHold{0%{opacity:1;visibility:visible}85%{opacity:1}100%{opacity:0;visibility:hidden}}
 .stars{position:absolute;inset:0;background:
   radial-gradient(circle at 20% 30%, rgba(255,255,255,.8) 1px, transparent 1px),
   radial-gradient(circle at 70% 40%, rgba(255,255,255,.7) 1px, transparent 1px),
@@ -92,7 +94,7 @@ h2{font-size:clamp(22px,3.2vw,32px)}
 .arabic{font-size:26px;letter-spacing:.04em}
 .subtitle{color:var(--muted)}
 .loaderbar{height:3px;width:220px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-top:4px}
-.loaderbar>span{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));animation:load 2.2s ease forwards}
+.loaderbar>span{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));animation:load 3s linear forwards}
 @keyframes load{from{transform:translateX(-100%)}to{transform:translateX(0)}}
 
 /* Language blocks */
@@ -151,15 +153,16 @@ h2{font-size:clamp(22px,3.2vw,32px)}
             </div>
           </div>
           <div class="bookwrap">
-            <!-- Положи book.jpg в корень репозитория или замени путь -->
-            <img class="bookimg" src="book.jpg" alt="Кодексы великой личности — книга">
+            <img class="bookimg" src="book.jpg" alt="Кодексы великой личности — книга"
+                 onerror="this.style.display='none';document.getElementById('ph-ru').style.display='block'">
+            <div id="ph-ru" class="placeholder">Загрузите файл <b>book.jpg</b> в корень репозитория.</div>
             <div class="bookshadow"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Video on first screen area -->
+    <!-- Видео на главной -->
     <section class="section">
       <div class="container">
         <div class="section__title"><h2>Видео</h2><div class="sep"></div></div>
@@ -172,6 +175,7 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       </div>
     </section>
 
+    <!-- Сторис RU -->
     <section id="stories-ru" class="section">
       <div class="container">
         <div class="section__title"><h2>Выдержки — «сторис»</h2><div class="sep"></div></div>
@@ -187,6 +191,7 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       </div>
     </section>
 
+    <!-- Заказ RU -->
     <section id="order-ru" class="section">
       <div class="container grid grid-2">
         <div class="card">
@@ -206,6 +211,7 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       </div>
     </section>
 
+    <!-- Контакты RU -->
     <section class="section">
       <div class="container">
         <div class="card">
@@ -220,7 +226,7 @@ h2{font-size:clamp(22px,3.2vw,32px)}
     </section>
   </section>
 
-  <!-- KZ -->
+  <!-- KZ (замени TODO_KZ_* своим контентом) -->
   <section class="lang-kk">
     <section class="hero">
       <div class="hero__bg"></div>
@@ -228,26 +234,28 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       <div class="container hero__wrap">
         <div class="hero__content">
           <div>
-            <span class="badge">ҚАЙРАТ ЕРҒАЗИЕВ | ӘЛ-ФАТИХ</span>
-            <h1>жүрегі жеңіс ұлылығын аңсағандар үшін</h1>
-            <p class="lead">Бұл кітап күшті тұлға болғысы келетіндерге арналған. Осы кодекстерді қолдан — қуат бойыңа енсін.</p>
+            <span class="badge">TODO_KZ_AUTHOR_BADGE</span>
+            <h1>TODO_KZ_MAIN_TITLE</h1>
+            <p class="lead">TODO_KZ_MAIN_LEAD</p>
             <div class="hero__cta">
-              <a class="btn" href="https://wa.me/79993587796">Электронды нұсқасын сатып алу</a>
-              <a class="btn btn--ghost" href="#order-kk">Қағаз нұсқасын сатып алу</a>
+              <a class="btn" href="https://wa.me/79993587796">TODO_KZ_BTN_EBOOK</a>
+              <a class="btn btn--ghost" href="#order-kk">TODO_KZ_BTN_PRINT</a>
             </div>
           </div>
           <div class="bookwrap">
-            <img class="bookimg" src="book.jpg" alt="Ұлы тұлғаның кодекстері — кітап">
+            <img class="bookimg" src="book.jpg" alt="TODO_KZ_BOOK_ALT"
+                 onerror="this.style.display='none';document.getElementById('ph-kk').style.display='block'">
+            <div id="ph-kk" class="placeholder">book.jpg жүктеңіз.</div>
             <div class="bookshadow"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Video mirrored for KZ -->
+    <!-- Видео KZ -->
     <section class="section">
       <div class="container">
-        <div class="section__title"><h2>Видео</h2><div class="sep"></div></div>
+        <div class="section__title"><h2>TODO_KZ_VIDEO_TITLE</h2><div class="sep"></div></div>
         <div class="video">
           <iframe src="https://www.youtube-nocookie.com/embed/yRmo-3UBu4c?rel=0&modestbranding=1&playsinline=1"
                   title="YouTube бейне"
@@ -257,9 +265,10 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       </div>
     </section>
 
+    <!-- Сторис KZ -->
     <section id="stories-kk" class="section">
       <div class="container">
-        <div class="section__title"><h2>Дәйексөздер — «сторис»</h2><div class="sep"></div></div>
+        <div class="section__title"><h2>TODO_KZ_STORIES_TITLE</h2><div class="sep"></div></div>
         <div class="typewrap">
           <div class="progress"><div class="bar" id="bar-kk"></div></div>
           <div class="type" id="type-kk"></div><span class="cursor" id="cursor-kk">&nbsp;</span>
@@ -272,30 +281,32 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       </div>
     </section>
 
+    <!-- Заказ KZ -->
     <section id="order-kk" class="section">
       <div class="container grid grid-2">
         <div class="card">
-          <div class="section__title"><h2>Кітапты сатып алу</h2><div class="sep"></div></div>
-          <p>Электронды және қағаз нұсқалары қолжетімді.</p>
-          <p><a class="btn" href="https://wa.me/79993587796">Электронды нұсқа</a></p>
-          <p><a class="btn btn--ghost" href="https://wa.me/77086270248">Қағаз нұсқа</a></p>
+          <div class="section__title"><h2>TODO_KZ_ORDER_TITLE</h2><div class="sep"></div></div>
+          <p>TODO_KZ_ORDER_DESC</p>
+          <p><a class="btn" href="https://wa.me/79993587796">TODO_KZ_ORDER_EBOOK</a></p>
+          <p><a class="btn btn--ghost" href="https://wa.me/77086270248">TODO_KZ_ORDER_PRINT</a></p>
         </div>
         <div class="card">
-          <div class="section__title"><h2>Неге дәл қазір</h2><div class="sep"></div></div>
+          <div class="section__title"><h2>TODO_KZ_WHY_TITLE</h2><div class="sep"></div></div>
           <ul class="list">
-            <li>Реализм және тәртіп.</li>
-            <li>Қағидалар мен шекаралар.</li>
-            <li>Көшбасшылық тәжірибесі.</li>
+            <li>TODO_KZ_WHY_1</li>
+            <li>TODO_KZ_WHY_2</li>
+            <li>TODO_KZ_WHY_3</li>
           </ul>
         </div>
       </div>
     </section>
 
+    <!-- Контакты KZ -->
     <section class="section">
       <div class="container">
         <div class="card">
-          <div class="section__title"><h2>Байланыс</h2><div class="sep"></div></div>
-          <p>Сілтеме ашылмаса, WhatsApp арқылы жазыңыз:</p>
+          <div class="section__title"><h2>TODO_KZ_CONTACTS_TITLE</h2><div class="sep"></div></div>
+          <p>TODO_KZ_CONTACTS_DESC</p>
           <p><a href="https://wa.me/79993587796">+7 999 358 77 96</a><br>
              <a href="https://wa.me/77086270248">+7 708 627 02 48</a></p>
           <p>Instagram: <a href="https://www.instagram.com/alfatha_arabic" target="_blank">@alfatha_arabic</a></p>
@@ -316,7 +327,7 @@ h2{font-size:clamp(22px,3.2vw,32px)}
 <script>
 document.getElementById('y').textContent=new Date().getFullYear();
 
-/* Typewriter per language */
+/* Тайпрайтер медленнее */
 function typewriter(set){
   const el=document.getElementById('type-'+set);
   const bar=document.getElementById('bar-'+set);
@@ -325,17 +336,24 @@ function typewriter(set){
     ? ["«Не давай обещаний. Не предупреждай. Не объясняй. Сделай — и пусть результат скажет за тебя.»",
        "«Я не боюсь армии львов, возглавляемой овцой. Я боюсь армии овец, возглавляемой львом»",
        "«Реалисты выживают всегда… Это готовность к битве. Это зрелость.»"]
-    : ["«Уәде берме. Ескертпе. Түсіндірме. Жай ғана жаса — нәтиже өзі сөйлесін.»",
-       "«Қой бастап жүрген арыстандардан қорықпаймын. Арыстан бастап жүрген қойлардан қорқамын»",
-       "«Реалистер әрдайым тірі қалады… Бұл — шайқасқа дайындық. Бұл — кемелдік.»"];
+    : ["TODO_KZ_QUOTE_1","TODO_KZ_QUOTE_2","TODO_KZ_QUOTE_3"];
   let i=0,pos=0,del=false,paused=false;
   function tick(){
     const t=quotes[i];
     if(!paused){
-      if(!del){pos++; bar.style.width=(pos/t.length*100)+'%'; el.textContent=t.slice(0,pos); if(pos>=t.length){setTimeout(()=>del=true,1100);}}
-      else{pos--; bar.style.width=(pos/t.length*100)+'%'; el.textContent=t.slice(0,pos); if(pos<=0){del=false;i=(i+1)%quotes.length;}}
+      if(!del){
+        pos++;
+        bar.style.width=(pos/t.length*100)+'%';
+        el.textContent=t.slice(0,pos);
+        if(pos>=t.length){setTimeout(()=>del=true,1400);} // пауза на полном тексте
+      }else{
+        pos--;
+        bar.style.width=(pos/t.length*100)+'%';
+        el.textContent=t.slice(0,pos);
+        if(pos<=0){del=false;i=(i+1)%quotes.length;}
+      }
     }
-    setTimeout(tick, del?18:26);
+    setTimeout(tick, del?32:48); // медленнее: было 18/26
   }
   tick();
   const prev=document.getElementById('prev-'+set),
