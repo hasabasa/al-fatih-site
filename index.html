@@ -3,229 +3,349 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>КОДЕКСЫ ВЕЛИКОЙ ЛИЧНОСТИ — заказать книгу</title>
+<title>КОДЕКСЫ ВЕЛИКОЙ ЛИЧНОСТИ — книга</title>
+<meta name="theme-color" content="#0b0a08">
 <style>
-:root{
-  --bg:#0b0a08;
-  --card:#13110f;
-  --ink:#ebe6d9;
-  --muted:#c9c3b7;
-  --gold:#c2a14a;
-  --gold-2:#a8841e;
-  --shadow: rgba(0,0,0,.35);
-}
+:root{--bg:#0b0a08;--ink:#ebe6d9;--muted:#c9c3b7;--gold:#c2a14a;--gold-2:#a8841e;--shadow:rgba(0,0,0,.35)}
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,"Noto Sans",sans-serif;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,"Noto Sans",sans-serif}
 a{color:var(--ink);text-decoration:none}
-img{max-width:100%;height:auto;display:block}
 .container{max-width:1120px;margin:0 auto;padding:0 18px}
+
+/* Header + lang switch */
 .header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(11,10,8,.95), rgba(11,10,8,.85) 60%, transparent)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.08em}
-.brand__mark{width:36px;height:36px;border-radius:50%;background:
-  radial-gradient(circle at 50% 40%, var(--gold) 0 38%, transparent 40%),
-  radial-gradient(circle at 50% 60%, var(--gold-2) 0 38%, transparent 40%);
-  box-shadow:0 0 0 2px var(--gold) inset, 0 0 22px var(--gold-2);
-}
-.nav__links{display:flex;gap:16px;font-size:14px;flex-wrap:wrap}
-.nav__links a{opacity:.9}
-.nav__links a:hover{opacity:1;color:#fff}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#0b0a08;font-weight:700;box-shadow:0 6px 14px var(--shadow);border:none}
-.btn--ghost{background:transparent;color:var(--ink);border:1px solid rgba(255,255,255,.15)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.08em}
+.brand__mark{width:28px;height:28px;border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 40%, var(--gold) 0 38%, transparent 40%),
+    radial-gradient(circle at 50% 60%, var(--gold-2) 0 38%, transparent 40%);
+  box-shadow:0 0 0 2px var(--gold) inset, 0 0 18px var(--gold-2);
+  animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{filter:saturate(1)}50%{filter:saturate(1.25)}}
+.langswitch{display:flex;gap:8px}
+.langswitch label{cursor:pointer;background:transparent;border:1px solid rgba(255,255,255,.18);color:var(--ink);padding:6px 10px;border-radius:10px;font-size:12px}
+#ru:checked ~ header .label-ru, #kk:checked ~ header .label-kk{border-color:var(--gold)}
+
+/* Hide radios */
+#ru,#kk{position:absolute;left:-9999px}
+
+/* Layout */
 .hero{position:relative;overflow:hidden}
-.hero__bg{
-  position:absolute;inset:-30% -10% -10% -10%;
+.hero__bg{position:absolute;inset:-30% -10% -10% -10%;
   background:
     radial-gradient(60% 60% at 80% 20%, rgba(194,161,74,.25), transparent 60%),
-    radial-gradient(50% 50% at 20% 10%, rgba(168,132,30,.22), transparent 60%),
+    radial-gradient(50% 50% at 20% 10%, rgba(168,132,30,.18), transparent 60%),
     linear-gradient(180deg, rgba(36,26,10,.35), transparent 40%);
-  filter:blur(10px);pointer-events:none;
-}
-.hero__pattern{
-  position:absolute;inset:0;opacity:.08;pointer-events:none;
+  filter:blur(10px);pointer-events:none}
+.hero__pattern{position:absolute;inset:0;opacity:.08;pointer-events:none;
   background-image:
     radial-gradient(circle at 50% 50%, #fff 1px, transparent 1px),
     radial-gradient(circle at 25% 25%, #fff 1px, transparent 1px),
     radial-gradient(circle at 75% 75%, #fff 1px, transparent 1px);
-  background-size:36px 36px,36px 36px,36px 36px;
-  mix-blend-mode:overlay;
-}
-.hero__wrap{padding:92px 0 56px}
-h1,h2,h3{font-family:Georgia, 'Times New Roman', Times, serif; margin:0 0 14px; letter-spacing:.02em}
-h1{font-size:clamp(34px,5.6vw,60px); line-height:1.05}
-h2{font-size:clamp(24px,3.2vw,34px)}
-.lead{font-size:clamp(16px,2vw,20px); color:var(--muted); line-height:1.6}
-.hero__cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-.card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:0 12px 28px var(--shadow);padding:22px}
+  background-size:36px 36px,36px 36px,36px 36px;mix-blend-mode:overlay;animation:patternShift 24s linear infinite}
+@keyframes patternShift{from{background-position:0 0,0 0,0 0}to{background-position:360px 0,0 360px,-360px -360px}}
+.hero__wrap{padding:72px 0 24px}
+h1,h2,h3{font-family:Georgia,'Times New Roman',Times,serif;margin:0 0 14px;letter-spacing:.02em}
+h1{font-size:clamp(32px,5.6vw,56px);line-height:1.05}
+h2{font-size:clamp(22px,3.2vw,32px)}
+.lead{font-size:clamp(15px,2vw,19px);color:var(--muted);line-height:1.6}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#0b0a08;font-weight:700;box-shadow:0 6px 14px var(--shadow);border:none}
+.btn--ghost{background:transparent;color:var(--ink);border:1px solid rgba(255,255,255,.15)}
+.card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:0 12px 28px var(--shadow);padding:20px}
 .grid{display:grid;grid-template-columns:1fr;gap:18px}
-@media(min-width:860px){.grid{grid-template-columns:1fr 1fr}}
-.section{padding:56px 0}
+@media(min-width:980px){.grid-2{grid-template-columns:1fr 1fr}}
+.section{padding:28px 0 48px}
 .section__title{display:flex;align-items:center;gap:14px}
 .sep{height:10px;flex:1;background:repeating-linear-gradient(90deg, transparent 0 24px, rgba(255,255,255,.08) 24px 26px)}
-.badge{display:inline-block;background:rgba(194,161,74,.15); color:var(--ink); border:1px solid rgba(194,161,74,.5); padding:6px 12px; border-radius:999px;font-size:12px;letter-spacing:.06em}
 .quote{font-style:italic;line-height:1.7}
-.list{margin:0; padding-left:18px}
+.list{margin:0;padding-left:18px}
 .footer{padding:36px 0 64px;border-top:1px solid rgba(255,255,255,.08);margin-top:36px;color:var(--muted);font-size:14px}
-.contacts a{color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-:target{scroll-margin-top:90px}
+.badge{display:inline-block;background:rgba(194,161,74,.15); color:var(--ink); border:1px solid rgba(194,161,74,.5); padding:6px 12px; border-radius:999px;font-size:12px;letter-spacing:.06em}
+
+/* Book mockup */
+.hero__content{display:grid;grid-template-columns:1fr;gap:22px;align-items:center}
+@media(min-width:980px){.hero__content{grid-template-columns:1.1fr .9fr}}
+.bookwrap{position:relative;display:flex;align-items:center;justify-content:center}
+.bookimg{max-width:420px;width:100%;filter:brightness(.92) contrast(1.12);mix-blend-mode:multiply;image-rendering:auto}
+.bookshadow{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:72%;height:24px;background:radial-gradient(50% 70% at 50% 50%, rgba(0,0,0,.45), transparent 70%);filter:blur(6px);opacity:.75;pointer-events:none}
+
+/* Typewriter */
+.typewrap{position:relative;min-height:140px;padding:20px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))}
+.type{font-size:18px;line-height:1.6}
+.cursor{display:inline-block;width:10px;background:var(--ink);margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{background:transparent}}
+.progress{position:absolute;left:0;right:0;top:0;height:3px;background:rgba(255,255,255,.08);overflow:hidden;border-top-left-radius:18px;border-top-right-radius:18px}
+.progress>.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .2s linear}
+.stories-ctrl{display:flex;gap:8px;margin-top:12px}
+.ctrl{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--ink);padding:8px 12px;border-radius:10px}
+
+/* PURE CSS PRELOADER */
+.preloader{position:fixed;inset:0;background:radial-gradient(1200px 700px at 50% 110%, #0b0a08, #060606 55%, #030303 80%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--ink);z-index:9999;animation:hidePre 2.2s ease forwards;pointer-events:none}
+@keyframes hidePre{0%{opacity:1;visibility:visible}90%{opacity:0}100%{opacity:0;visibility:hidden}}
+.stars{position:absolute;inset:0;background:
+  radial-gradient(circle at 20% 30%, rgba(255,255,255,.8) 1px, transparent 1px),
+  radial-gradient(circle at 70% 40%, rgba(255,255,255,.7) 1px, transparent 1px),
+  radial-gradient(circle at 40% 70%, rgba(255,255,255,.6) 1px, transparent 1px);
+  background-size:120px 120px,160px 160px,200px 200px;opacity:.35;animation:starShift 30s linear infinite}
+@keyframes starShift{from{background-position:0 0,0 0,0 0}to{background-position:-600px -80px, 400px 120px, -300px 60px}}
+.arabic{font-size:26px;letter-spacing:.04em}
+.subtitle{color:var(--muted)}
+.loaderbar{height:3px;width:220px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-top:4px}
+.loaderbar>span{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-2));animation:load 2.2s ease forwards}
+@keyframes load{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+
+/* Language blocks */
+.lang-ru,.lang-kk{display:none}
+#ru:checked ~ main .lang-ru{display:block}
+#kk:checked ~ main .lang-kk{display:block}
+
+/* Responsive YouTube */
+.video{position:relative;width:100%;padding-top:56.25%;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:0 12px 28px var(--shadow);background:#000}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container nav">
-      <div class="brand">
-        <div class="brand__mark" aria-hidden="true"></div>
-        <span>КОДЕКСЫ ВЕЛИКОЙ ЛИЧНОСТИ</span>
-      </div>
-      <nav class="nav__links">
-        <a href="#about">О книге</a>
-        <a href="#excerpts">Выдержки</a>
-        <a href="#topics">Темы</a>
-        <a href="#audience">Для кого</a>
-        <a href="#order">Заказать</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-    </div>
-  </header>
 
-  <section class="hero">
-    <div class="hero__bg"></div>
-    <div class="hero__pattern"></div>
-    <div class="container hero__wrap">
-      <span class="badge">КАЙРАТ ЕРГАЗИЕВ | АЛЬ ФАТИХ</span>
-      <h1>для тех, чьи сердца жаждут величия победы</h1>
-      <p class="lead">Книга для тех, кто желает стать сильной личностью. Данная задача не проста и требует долгой внутренней борьбы. Примени эти кодексы, и ты заметишь как сила начнёт зарождаться в тебе.</p>
-      <p class="lead">Книга написана отцом и сыном: мудрость отца и амбиции сына. <strong>20 КОДЕКСОВ ВЕЛИКОЙ ЛИЧНОСТИ.</strong></p>
-      <div class="hero__cta">
-        <a class="btn" href="https://wa.me/79993587796">Купить электронную версию</a>
-        <a class="btn btn--ghost" href="#order">Купить книжную версию</a>
-      </div>
-    </div>
-  </section>
+<!-- Preloader -->
+<div class="preloader">
+  <div class="stars" aria-hidden="true"></div>
+  <div class="arabic">بِإِذْنِ ٱللّٰهِ</div>
+  <div class="subtitle">Алланың қалауымен</div>
+  <div class="subtitle">С позволения Аллаhа</div>
+  <div class="loaderbar"><span></span></div>
+</div>
 
-  <section id="about" class="section">
-    <div class="container grid">
-      <div class="card">
-        <div class="section__title">
-          <h2>Голоса двух поколений</h2><div class="sep"></div>
+<!-- CSS radios to toggle language -->
+<input type="radio" name="lang" id="ru" checked>
+<input type="radio" name="lang" id="kk">
+
+<header class="header">
+  <div class="container nav">
+    <div class="brand">
+      <div class="brand__mark" aria-hidden="true"></div>
+      <span>КОДЕКСЫ ВЕЛИКОЙ ЛИЧНОСТИ</span>
+    </div>
+    <div class="langswitch">
+      <label class="label-ru" for="ru">RU</label>
+      <label class="label-kk" for="kk">KZ</label>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- RU -->
+  <section class="lang-ru">
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="hero__pattern"></div>
+      <div class="container hero__wrap">
+        <div class="hero__content">
+          <div>
+            <span class="badge">КАЙРАТ ЕРГАЗИЕВ | АЛЬ ФАТИХ</span>
+            <h1>для тех, чьи сердца жаждут величия победы</h1>
+            <p class="lead">Книга для тех, кто желает стать сильной личностью. Примени эти кодексы — и сила начнёт зарождаться в тебе.</p>
+            <div class="hero__cta">
+              <a class="btn" href="https://wa.me/79993587796">Купить электронную версию</a>
+              <a class="btn btn--ghost" href="#order-ru">Купить книжную версию</a>
+            </div>
+          </div>
+          <div class="bookwrap">
+            <!-- Положи book.jpg в корень репозитория или замени путь -->
+            <img class="bookimg" src="book.jpg" alt="Кодексы великой личности — книга">
+            <div class="bookshadow"></div>
+          </div>
         </div>
-        <p>Книга подходит молодым и взрослым, юношам и девушкам, мужчинам и женщинам.</p>
-        <p class="quote">«Не давай обещаний. Не предупреждай. Не объясняй. Сделай — и пусть результат скажет за тебя…»</p>
       </div>
-      <div class="card">
-        <div class="section__title">
-          <h2>Мир жесток. Будь реалистом!</h2><div class="sep"></div>
+    </section>
+
+    <!-- Video on first screen area -->
+    <section class="section">
+      <div class="container">
+        <div class="section__title"><h2>Видео</h2><div class="sep"></div></div>
+        <div class="video">
+          <iframe src="https://www.youtube-nocookie.com/embed/yRmo-3UBu4c?rel=0&modestbranding=1&playsinline=1"
+                  title="YouTube video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
         </div>
-        <p class="quote">«Реалисты выживают всегда… Это не страх — это готовность к битве. Это не ожесточённость — это зрелость.»</p>
-        <p class="quote">«Я не боюсь армии львов, возглавляемой овцой. Я боюсь армии овец, возглавляемой львом».</p>
       </div>
-    </div>
+    </section>
+
+    <section id="stories-ru" class="section">
+      <div class="container">
+        <div class="section__title"><h2>Выдержки — «сторис»</h2><div class="sep"></div></div>
+        <div class="typewrap">
+          <div class="progress"><div class="bar" id="bar-ru"></div></div>
+          <div class="type" id="type-ru"></div><span class="cursor" id="cursor-ru">&nbsp;</span>
+          <div class="stories-ctrl">
+            <button class="ctrl" id="prev-ru">◀</button>
+            <button class="ctrl" id="next-ru">▶</button>
+            <button class="ctrl" id="pause-ru">⏸</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="order-ru" class="section">
+      <div class="container grid grid-2">
+        <div class="card">
+          <div class="section__title"><h2>Заказать книгу</h2><div class="sep"></div></div>
+          <p>Доступна электронная и печатная версии.</p>
+          <p><a class="btn" href="https://wa.me/79993587796">Купить электронную версию</a></p>
+          <p><a class="btn btn--ghost" href="https://wa.me/77086270248">Купить книжную версию</a></p>
+        </div>
+        <div class="card">
+          <div class="section__title"><h2>Почему сейчас</h2><div class="sep"></div></div>
+          <ul class="list">
+            <li>Реализм и дисциплина.</li>
+            <li>Принципы и границы.</li>
+            <li>Практика лидерства.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card">
+          <div class="section__title"><h2>Контакты</h2><div class="sep"></div></div>
+          <p>Если ссылка не открывается, напишите в WhatsApp:</p>
+          <p><a href="https://wa.me/79993587796">+7 999 358 77 96</a><br>
+             <a href="https://wa.me/77086270248">+7 708 627 02 48</a></p>
+          <p>Instagram: <a href="https://www.instagram.com/alfatha_arabic" target="_blank">@alfatha_arabic</a></p>
+          <p>YouTube канал: <a href="https://youtube.com/@kairatsagit" target="_blank">@kairatsagit</a></p>
+        </div>
+      </div>
+    </section>
   </section>
 
-  <section id="excerpts" class="section">
-    <div class="container grid">
-      <div class="card">
-        <div class="section__title"><h2>Быть сильным — твоя обязанность</h2><div class="sep"></div></div>
-        <p class="quote">«Сильная личность имеет принципы и нормы морали… умеет чётко выставлять границы.»</p>
+  <!-- KZ -->
+  <section class="lang-kk">
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="hero__pattern"></div>
+      <div class="container hero__wrap">
+        <div class="hero__content">
+          <div>
+            <span class="badge">ҚАЙРАТ ЕРҒАЗИЕВ | ӘЛ-ФАТИХ</span>
+            <h1>жүрегі жеңіс ұлылығын аңсағандар үшін</h1>
+            <p class="lead">Бұл кітап күшті тұлға болғысы келетіндерге арналған. Осы кодекстерді қолдан — қуат бойыңа енсін.</p>
+            <div class="hero__cta">
+              <a class="btn" href="https://wa.me/79993587796">Электронды нұсқасын сатып алу</a>
+              <a class="btn btn--ghost" href="#order-kk">Қағаз нұсқасын сатып алу</a>
+            </div>
+          </div>
+          <div class="bookwrap">
+            <img class="bookimg" src="book.jpg" alt="Ұлы тұлғаның кодекстері — кітап">
+            <div class="bookshadow"></div>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <div class="section__title"><h2>Смерть — истина</h2><div class="sep"></div></div>
-        <p class="quote">«Разве нам не предписана смерть? … Мы хороним их и не думаем, что будем на их месте.»</p>
-        <p class="quote">«Путь самурая — это смерть. Надо каждый день мысленно умирать…»</p>
-      </div>
-      <div class="card">
-        <div class="section__title"><h2>Память о конечности</h2><div class="sep"></div></div>
-        <p>Ты не вечен. Когда это осознаешь, поймёшь, что действительно важно.</p>
-        <p class="quote">«Иллюзия непобедимости — самый опасный яд…»</p>
-      </div>
-      <div class="card">
-        <div class="section__title"><h2>Знания</h2><div class="sep"></div></div>
-        <p>Знания никогда не бывает достаточно. <strong>Количество книг ограничено.</strong></p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="topics" class="section">
-    <div class="container">
-      <div class="card">
-        <div class="section__title"><h2>Темы и вопросы книги</h2><div class="sep"></div></div>
-        <ul class="list">
-          <li>Миссия личности.</li>
-          <li>Как стать тем, кто меняет мир.</li>
-          <li>Окружение сильными людьми.</li>
-          <li>Лидерство.</li>
-          <li>Деньги как оружие свободы.</li>
-          <li>Какое знание важно.</li>
-          <li>Сжигай мосты.</li>
-          <li>Философия смерти.</li>
-          <li>Контроль эмоций.</li>
-          <li>Нет предела совершенству.</li>
-          <li>Вера.</li>
-        </ul>
-        <p><em>ТВОЁ РУКОВОДСТВО В МИР СИЛЫ, ВЛАСТИ И БОГАТСТВА.</em></p>
+    <!-- Video mirrored for KZ -->
+    <section class="section">
+      <div class="container">
+        <div class="section__title"><h2>Видео</h2><div class="sep"></div></div>
+        <div class="video">
+          <iframe src="https://www.youtube-nocookie.com/embed/yRmo-3UBu4c?rel=0&modestbranding=1&playsinline=1"
+                  title="YouTube бейне"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="audience" class="section">
-    <div class="container grid">
-      <div class="card">
-        <div class="section__title"><h2>Кому необходима книга</h2><div class="sep"></div></div>
-        <ul class="list">
-          <li><strong>Предпринимателям и руководителям:</strong> устойчивое мышление и эмоциональный интеллект.</li>
-          <li><strong>Студентам:</strong> концентрация и стресс-менеджмент.</li>
-          <li><strong>Спортсменам:</strong> психологическая устойчивость.</li>
-          <li><strong>Профессионалам:</strong> фокус на контролируемых факторах.</li>
-          <li><strong>Тем, кто сталкивается с тревогой:</strong> переосмысление мыслей.</li>
-        </ul>
+    <section id="stories-kk" class="section">
+      <div class="container">
+        <div class="section__title"><h2>Дәйексөздер — «сторис»</h2><div class="sep"></div></div>
+        <div class="typewrap">
+          <div class="progress"><div class="bar" id="bar-kk"></div></div>
+          <div class="type" id="type-kk"></div><span class="cursor" id="cursor-kk">&nbsp;</span>
+          <div class="stories-ctrl">
+            <button class="ctrl" id="prev-kk">◀</button>
+            <button class="ctrl" id="next-kk">▶</button>
+            <button class="ctrl" id="pause-kk">⏸</button>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <div class="section__title"><h2>О стиле и примерах</h2><div class="sep"></div></div>
-        <p>Истории сподвижников, Салах ад‑Дина аль‑Айюби и других полководцев, а также разбор современных политиков.</p>
-        <p class="quote">«Книга для реалистов… у победы всегда есть цена — огромный труд».</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="order" class="section">
-    <div class="container grid">
-      <div class="card">
-        <div class="section__title"><h2>Заказать книгу</h2><div class="sep"></div></div>
-        <p>Доступна электронная и печатная версии.</p>
-        <p><a class="btn" href="https://wa.me/79993587796">Купить электронную версию</a></p>
-        <p><a class="btn btn--ghost" href="https://wa.me/77086270248">Купить книжную версию</a> <small>(с 10 сентября; количество ограничено)</small></p>
+    <section id="order-kk" class="section">
+      <div class="container grid grid-2">
+        <div class="card">
+          <div class="section__title"><h2>Кітапты сатып алу</h2><div class="sep"></div></div>
+          <p>Электронды және қағаз нұсқалары қолжетімді.</p>
+          <p><a class="btn" href="https://wa.me/79993587796">Электронды нұсқа</a></p>
+          <p><a class="btn btn--ghost" href="https://wa.me/77086270248">Қағаз нұсқа</a></p>
+        </div>
+        <div class="card">
+          <div class="section__title"><h2>Неге дәл қазір</h2><div class="sep"></div></div>
+          <ul class="list">
+            <li>Реализм және тәртіп.</li>
+            <li>Қағидалар мен шекаралар.</li>
+            <li>Көшбасшылық тәжірибесі.</li>
+          </ul>
+        </div>
       </div>
-      <div class="card">
-        <div class="section__title"><h2>Почему сейчас</h2><div class="sep"></div></div>
-        <ul class="list">
-          <li>Реализм и дисциплина.</li>
-          <li>Принципы и границы.</li>
-          <li>Практика лидерства.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contacts" class="section">
-    <div class="container">
-      <div class="card contacts">
-        <div class="section__title"><h2>Контакты</h2><div class="sep"></div></div>
-        <p>Если ссылка не открывается, напишите в WhatsApp:</p>
-        <p><a href="https://wa.me/79993587796">+7 999 358 77 96</a><br>
-           <a href="https://wa.me/77086270248">+7 708 627 02 48</a></p>
-        <p>Instagram: <a href="https://www.instagram.com/alfatha_arabic" target="_blank">@alfatha_arabic</a></p>
+    <section class="section">
+      <div class="container">
+        <div class="card">
+          <div class="section__title"><h2>Байланыс</h2><div class="sep"></div></div>
+          <p>Сілтеме ашылмаса, WhatsApp арқылы жазыңыз:</p>
+          <p><a href="https://wa.me/79993587796">+7 999 358 77 96</a><br>
+             <a href="https://wa.me/77086270248">+7 708 627 02 48</a></p>
+          <p>Instagram: <a href="https://www.instagram.com/alfatha_arabic" target="_blank">@alfatha_arabic</a></p>
+          <p>YouTube арнасы: <a href="https://youtube.com/@kairatsagit" target="_blank">@kairatsagit</a></p>
+        </div>
       </div>
-    </div>
+    </section>
   </section>
+</main>
 
-  <footer class="footer">
-    <div class="container">
-      <div>© <span id="y"></span> КОДЕКСЫ ВЕЛИКОЙ ЛИЧНОСТИ</div>
-      <div>Однофайловая версия с встроенным дизайном.</div>
-    </div>
-  </footer>
+<footer class="footer">
+  <div class="container">
+    <div>© <span id="y"></span> КОДЕКСЫ ВЕЛИКОЙ ЛИЧНОСТИ</div>
+    <div>Арабский вайб, однофайловая вёрстка.</div>
+  </div>
+</footer>
+
 <script>
-document.getElementById('y').textContent = new Date().getFullYear();
+document.getElementById('y').textContent=new Date().getFullYear();
+
+/* Typewriter per language */
+function typewriter(set){
+  const el=document.getElementById('type-'+set);
+  const bar=document.getElementById('bar-'+set);
+  if(!el||!bar) return;
+  const quotes = set==='ru'
+    ? ["«Не давай обещаний. Не предупреждай. Не объясняй. Сделай — и пусть результат скажет за тебя.»",
+       "«Я не боюсь армии львов, возглавляемой овцой. Я боюсь армии овец, возглавляемой львом»",
+       "«Реалисты выживают всегда… Это готовность к битве. Это зрелость.»"]
+    : ["«Уәде берме. Ескертпе. Түсіндірме. Жай ғана жаса — нәтиже өзі сөйлесін.»",
+       "«Қой бастап жүрген арыстандардан қорықпаймын. Арыстан бастап жүрген қойлардан қорқамын»",
+       "«Реалистер әрдайым тірі қалады… Бұл — шайқасқа дайындық. Бұл — кемелдік.»"];
+  let i=0,pos=0,del=false,paused=false;
+  function tick(){
+    const t=quotes[i];
+    if(!paused){
+      if(!del){pos++; bar.style.width=(pos/t.length*100)+'%'; el.textContent=t.slice(0,pos); if(pos>=t.length){setTimeout(()=>del=true,1100);}}
+      else{pos--; bar.style.width=(pos/t.length*100)+'%'; el.textContent=t.slice(0,pos); if(pos<=0){del=false;i=(i+1)%quotes.length;}}
+    }
+    setTimeout(tick, del?18:26);
+  }
+  tick();
+  const prev=document.getElementById('prev-'+set),
+        next=document.getElementById('next-'+set),
+        pause=document.getElementById('pause-'+set);
+  if(prev) prev.onclick=()=>{i=(i-1+quotes.length)%quotes.length; pos=0; del=false;};
+  if(next) next.onclick=()=>{i=(i+1)%quotes.length; pos=0; del=false;};
+  if(pause) pause.onclick=()=>{paused=!paused;};
+}
+typewriter('ru'); typewriter('kk');
 </script>
 </body>
 </html>
