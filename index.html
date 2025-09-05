@@ -58,31 +58,24 @@ h2{font-size:clamp(22px,3.2vw,32px)}
 .section{padding:28px 0 48px}
 .section__title{display:flex;align-items:center;gap:14px}
 .sep{height:10px;flex:1;background:repeating-linear-gradient(90deg, transparent 0 24px, rgba(255,255,255,.08) 24px 26px)}
-.quote{font-style:italic;line-height:1.7}
 .list{margin:0;padding-left:18px}
 .footer{padding:36px 0 64px;border-top:1px solid rgba(255,255,255,.08);margin-top:36px;color:var(--muted);font-size:14px}
-.badge{display:inline-block;background:rgba(194,161,74,.15); color:var(--ink); border:1px solid rgba(194,161,74,.5); padding:6px 12px; border-radius:999px;font-size:12px;letter-spacing:.06em}
 
 /* Book mockup */
 .hero__content{display:grid;grid-template-columns:1fr;gap:22px;align-items:center}
 @media(min-width:980px){.hero__content{grid-template-columns:1.1fr .9fr}}
 .bookwrap{position:relative;display:flex;align-items:center;justify-content:center}
-.bookwrap::before{content:"";position:absolute;inset:0 6%;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));filter:blur(2px);box-shadow:0 12px 28px var(--shadow)}
-.bookimg{position:relative;max-width:420px;width:100%;filter:brightness(1) contrast(1.06);mix-blend-mode:normal;z-index:1}
+.bookglow{position:absolute;inset:8% 10%;border-radius:22px;background:radial-gradient(60% 60% at 40% 20%, rgba(194,161,74,.25), transparent 60%), radial-gradient(60% 60% at 60% 80%, rgba(168,132,30,.18), transparent 60%);filter:blur(10px)}
+.bookimg{position:relative;max-width:420px;width:100%;filter:brightness(1.06) contrast(1.08);z-index:1}
 .bookshadow{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:72%;height:24px;background:radial-gradient(50% 70% at 50% 50%, rgba(0,0,0,.55), transparent 70%);filter:blur(6px);opacity:.8;pointer-events:none;z-index:0}
 .placeholder{display:none;position:relative;z-index:1;color:var(--muted);font-size:14px}
 
-/* Typewriter */
-.typewrap{position:relative;min-height:140px;padding:20px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))}
-.type{font-size:18px;line-height:1.6}
-.cursor{display:inline-block;width:10px;background:var(--ink);margin-left:2px;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{background:transparent}}
-.progress{position:absolute;left:0;right:0;top:0;height:3px;background:rgba(255,255,255,.08);overflow:hidden;border-top-left-radius:18px;border-top-right-radius:18px}
-.progress>.bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .25s linear}
-.stories-ctrl{display:flex;gap:8px;margin-top:12px}
-.ctrl{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--ink);padding:8px 12px;border-radius:10px}
+/* Quotes appear on scroll */
+.quotes{display:grid;gap:14px}
+.quote{opacity:0;transform:translateY(40px);transition:opacity .8s ease-out, transform .8s ease-out;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 18px;font-size:18px;line-height:1.6}
+.quote.show{opacity:1;transform:translateY(0)}
 
-/* PURE CSS PRELOADER — 3s hold, потом плавное скрытие */
+/* PURE CSS PRELOADER — 3s */
 .preloader{position:fixed;inset:0;background:radial-gradient(1200px 700px at 50% 110%, #0b0a08, #060606 55%, #030303 80%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--ink);z-index:9999;pointer-events:none;animation:preHold 3s ease forwards}
 @keyframes preHold{0%{opacity:1;visibility:visible}85%{opacity:1}100%{opacity:0;visibility:hidden}}
 .stars{position:absolute;inset:0;background:
@@ -153,9 +146,11 @@ h2{font-size:clamp(22px,3.2vw,32px)}
             </div>
           </div>
           <div class="bookwrap">
-            <img class="bookimg" src="book.jpg" alt="Кодексы великой личности — книга"
+            <span class="bookglow" aria-hidden="true"></span>
+            <!-- Положи файл с прозрачным фоном рядом с index.html -->
+            <img class="bookimg" src="book.png" alt="Кодексы великой личности — книга"
                  onerror="this.style.display='none';document.getElementById('ph-ru').style.display='block'">
-            <div id="ph-ru" class="placeholder">Загрузите файл <b>book.jpg</b> в корень репозитория.</div>
+            <div id="ph-ru" class="placeholder">Загрузите <b>book.png</b> в корень репозитория.</div>
             <div class="bookshadow"></div>
           </div>
         </div>
@@ -175,18 +170,14 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       </div>
     </section>
 
-    <!-- Сторис RU -->
-    <section id="stories-ru" class="section">
+    <!-- Выдержки RU -->
+    <section id="quotes-ru" class="section">
       <div class="container">
-        <div class="section__title"><h2>Выдержки — «сторис»</h2><div class="sep"></div></div>
-        <div class="typewrap">
-          <div class="progress"><div class="bar" id="bar-ru"></div></div>
-          <div class="type" id="type-ru"></div><span class="cursor" id="cursor-ru">&nbsp;</span>
-          <div class="stories-ctrl">
-            <button class="ctrl" id="prev-ru">◀</button>
-            <button class="ctrl" id="next-ru">▶</button>
-            <button class="ctrl" id="pause-ru">⏸</button>
-          </div>
+        <div class="section__title"><h2>Выдержки</h2><div class="sep"></div></div>
+        <div class="quotes">
+          <div class="quote">«Не давай обещаний. Не предупреждай. Не объясняй. Сделай — и пусть результат скажет за тебя.»</div>
+          <div class="quote">«Я не боюсь армии львов, возглавляемой овцой. Я боюсь армии овец, возглавляемой львом.»</div>
+          <div class="quote">«Реалисты выживают всегда… Это готовность к битве. Это зрелость.»</div>
         </div>
       </div>
     </section>
@@ -243,9 +234,10 @@ h2{font-size:clamp(22px,3.2vw,32px)}
             </div>
           </div>
           <div class="bookwrap">
-            <img class="bookimg" src="book.jpg" alt="TODO_KZ_BOOK_ALT"
+            <span class="bookglow" aria-hidden="true"></span>
+            <img class="bookimg" src="book.png" alt="TODO_KZ_BOOK_ALT"
                  onerror="this.style.display='none';document.getElementById('ph-kk').style.display='block'">
-            <div id="ph-kk" class="placeholder">book.jpg жүктеңіз.</div>
+            <div id="ph-kk" class="placeholder">book.png жүктеңіз.</div>
             <div class="bookshadow"></div>
           </div>
         </div>
@@ -265,18 +257,14 @@ h2{font-size:clamp(22px,3.2vw,32px)}
       </div>
     </section>
 
-    <!-- Сторис KZ -->
-    <section id="stories-kk" class="section">
+    <!-- Выдержки KZ -->
+    <section id="quotes-kk" class="section">
       <div class="container">
-        <div class="section__title"><h2>TODO_KZ_STORIES_TITLE</h2><div class="sep"></div></div>
-        <div class="typewrap">
-          <div class="progress"><div class="bar" id="bar-kk"></div></div>
-          <div class="type" id="type-kk"></div><span class="cursor" id="cursor-kk">&nbsp;</span>
-          <div class="stories-ctrl">
-            <button class="ctrl" id="prev-kk">◀</button>
-            <button class="ctrl" id="next-kk">▶</button>
-            <button class="ctrl" id="pause-kk">⏸</button>
-          </div>
+        <div class="section__title"><h2>TODO_KZ_QUOTES_TITLE</h2><div class="sep"></div></div>
+        <div class="quotes">
+          <div class="quote">TODO_KZ_QUOTE_1</div>
+          <div class="quote">TODO_KZ_QUOTE_2</div>
+          <div class="quote">TODO_KZ_QUOTE_3</div>
         </div>
       </div>
     </section>
@@ -327,43 +315,13 @@ h2{font-size:clamp(22px,3.2vw,32px)}
 <script>
 document.getElementById('y').textContent=new Date().getFullYear();
 
-/* Тайпрайтер медленнее */
-function typewriter(set){
-  const el=document.getElementById('type-'+set);
-  const bar=document.getElementById('bar-'+set);
-  if(!el||!bar) return;
-  const quotes = set==='ru'
-    ? ["«Не давай обещаний. Не предупреждай. Не объясняй. Сделай — и пусть результат скажет за тебя.»",
-       "«Я не боюсь армии львов, возглавляемой овцой. Я боюсь армии овец, возглавляемой львом»",
-       "«Реалисты выживают всегда… Это готовность к битве. Это зрелость.»"]
-    : ["TODO_KZ_QUOTE_1","TODO_KZ_QUOTE_2","TODO_KZ_QUOTE_3"];
-  let i=0,pos=0,del=false,paused=false;
-  function tick(){
-    const t=quotes[i];
-    if(!paused){
-      if(!del){
-        pos++;
-        bar.style.width=(pos/t.length*100)+'%';
-        el.textContent=t.slice(0,pos);
-        if(pos>=t.length){setTimeout(()=>del=true,1400);} // пауза на полном тексте
-      }else{
-        pos--;
-        bar.style.width=(pos/t.length*100)+'%';
-        el.textContent=t.slice(0,pos);
-        if(pos<=0){del=false;i=(i+1)%quotes.length;}
-      }
-    }
-    setTimeout(tick, del?32:48); // медленнее: было 18/26
-  }
-  tick();
-  const prev=document.getElementById('prev-'+set),
-        next=document.getElementById('next-'+set),
-        pause=document.getElementById('pause-'+set);
-  if(prev) prev.onclick=()=>{i=(i-1+quotes.length)%quotes.length; pos=0; del=false;};
-  if(next) next.onclick=()=>{i=(i+1)%quotes.length; pos=0; del=false;};
-  if(pause) pause.onclick=()=>{paused=!paused;};
-}
-typewriter('ru'); typewriter('kk');
+/* Появление цитат при скролле */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+  });
+},{threshold:0.2});
+document.querySelectorAll('.quote').forEach(q=>io.observe(q));
 </script>
 </body>
 </html>
